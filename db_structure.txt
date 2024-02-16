@@ -1,0 +1,30 @@
+Event 
+- id
+- nama
+- lokasi
+- timestamp
+- created_at
+
+Kategori
+- id
+- nama
+- jenis_kelamin
+- status (run, stop)
+- event_id
+- start_race
+- end_race
+
+rider
+- id
+- bib
+- nama
+- tim
+- provinsi_asal
+- tanggal_lahir
+- kategori_id
+
+running
+- id
+- rider_id
+- time
+- status (run,dsq,dnf,dns)
