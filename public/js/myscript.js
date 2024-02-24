@@ -107,10 +107,26 @@ function displayData() {
     row.insertCell(3).textContent = item.lap;
 
     const deleteButton = document.createElement("button");
-    deleteButton.textContent = "X";
+    const editButton = document.createElement("button");
+    const div = document.createElement("div");
+    deleteButton.textContent = "❌";
     deleteButton.addEventListener("click", () => deleteData(item.idBaris));
-    row.insertCell(4).appendChild(deleteButton);
+    editButton.textContent = "✏";
+    editButton.addEventListener("click", () => editData(item.idBaris));
+    editButton.classList.add("me-3", "btn", "btn-sm", "btn-success");
+    deleteButton.classList.add("btn", "btn-sm", "btn-danger");
+    div.appendChild(editButton);
+    div.appendChild(deleteButton);
+    row.insertCell(4).appendChild(div);
   });
+}
+
+function editData(idBaris) {
+  // let data = JSON.parse(localStorage.getItem("data")) || [];
+  // data = data.filter((item) => item.idBaris !== idBaris);
+  // localStorage.setItem("data", JSON.stringify(data));
+  // // Reload the table
+  // displayData();
 }
 
 function deleteData(idBaris) {
@@ -134,6 +150,7 @@ function getCurrentTime() {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
+    fractionalSecondDigits: 2,
     hour12: false, // Use 24-hour format
     timeZone: "Asia/Jakarta",
   }).format(new Date());
