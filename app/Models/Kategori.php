@@ -12,7 +12,7 @@ class Kategori extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nama','jenis_kelamin', 'status', 'event_id', 'start_race', 'end_race'];
+    protected $allowedFields    = ['nama','jenis_kelamin', 'status', 'event_id', 'start_race', 'end_race', 'lap'];
 
     protected bool $allowEmptyInserts = false;
 

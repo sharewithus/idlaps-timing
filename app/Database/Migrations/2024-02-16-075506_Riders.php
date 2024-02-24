@@ -44,6 +44,11 @@ class Riders extends Migration
                 'type' => 'DATE',
                 'null' => true,
             ],
+			'kategori_id' => [
+                'type' => 'INT',
+                'constraint' => '11',
+                'unsigned' => true
+            ],
 		]);
 
 		// Membuat primary key

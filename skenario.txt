@@ -1,0 +1,13 @@
+
+saat tombol start ditekan
+ - update waktu start di tabel kategori,
+ - update kolom run di tabel kategori
+
+saat rider ditekan
+- tabel race harus ada kolom lap, yang didapat dari lap pada tabel kategori
+- kurangin lap di tabel race
+- isi kolom ip pada tabel timing
+- isi kolom waktu
+- 
+
+looping elements on click

@@ -5,20 +5,25 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\Rider as RiderModel;
+use App\Models\Kategori as CategoryModel;
 
 class Rider extends BaseController
 {
     public function index()
     {
+        
+        $categoryModel = new CategoryModel();
         $data['title'] = 'Rider';
-
+        $data['categories'] = $categoryModel->select(['categories.id', 'categories.nama', 'events.nama as event_nama'])->join('events', 'events.id = categories.event_id')->findAll();
+        
         return view('rider', $data);
     }
 
     public function new()
     {
         $riderModel = new RiderModel();
-        $data = $riderModel->findAll();
+
+        $data = $riderModel->select(['riders.*', 'categories.nama as kategori_nama', 'events.nama as event_nama'])->join('categories', 'categories.id = riders.kategori_id')->join('events', 'events.id = categories.event_id')->findAll();
         
         return $this->response->setJSON(['data'=> $data]);
     }
@@ -35,6 +40,7 @@ class Rider extends BaseController
                 'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
                 'provinsi_asal' => $this->request->getPost('provinsi_asal'),
                 'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
+                'kategori_id' => $this->request->getPost('kategori_id'),
             ];
 
             try {
@@ -113,6 +119,7 @@ class Rider extends BaseController
                 'jenis_kelamin' => $this->request->getGet('jenis_kelamin'),
                 'provinsi_asal' => $this->request->getGet('provinsi_asal'),
                 'tanggal_lahir' => $this->request->getGet('tanggal_lahir'),
+                'kategori_id' => $this->request->getGet('kategori_id'),
             ];
 
             $model->update($id, $data);
@@ -124,6 +131,13 @@ class Rider extends BaseController
 
             return $this->response->setJSON($response);
         }
+    }
+
+    public function setup()
+    {
+        $riderModel = new RiderModel();
+        $data = $riderModel->select(['riders.id','riders.nama','riders.bib','riders.tim', 'categories.nama as kategori_nama', 'categories.lap', 'categories.id as kategori_id'])->join('categories','riders.kategori_id = categories.id')->whereIn('riders.kategori_id', session()->get('kategori'))->findAll();
+        return $this->response->setJSON(['data'=> $data]);
     }
     
 }

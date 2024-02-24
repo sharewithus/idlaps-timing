@@ -4,15 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Rider extends Model
+class ResultLog extends Model
 {
-    protected $table            = 'riders';
+    protected $table            = 'result_logs';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nama','jenis_kelamin', 'tim', 'provinsi_asal', 'bib', 'tanggal_lahir', 'kategori_id'];
+    protected $allowedFields    = ['bib', 'time', 'mac', 'lap'];
 
     protected bool $allowEmptyInserts = false;
 

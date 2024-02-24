@@ -1,0 +1,73 @@
+.container {
+  min-height: 100vh !important;
+  max-height: 100vh !important;
+  height: 100vh !important;
+  overflow: hidden;
+}
+
+/* Calculator Styles */
+.calc {
+  max-height: 40vh;
+  /* width: 400px; */
+  /* position: relative; */
+}
+.display {
+  font-size: 3rem;
+}
+
+/* .keys-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+} */
+
+.keypad .keys-row .key {
+  background-color: #333333;
+  font-size: 1.7rem;
+  text-align: center;
+  width: 85px;
+  line-height: 70px;
+  /* border-radius: 50px; */
+  margin: 0 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.keypad-new .key {
+  background-color: #ffa45c;
+  font-size: 1.7rem;
+  text-align: center;
+  width: 85px;
+  line-height: 70px;
+  /* border-radius: 50px; */
+  margin: 0 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.keypad :first-child :nth-child(1),
+.keypad :first-child :nth-child(2),
+.keypad :first-child :nth-child(3) {
+  background-color: #a5a5a5;
+}
+.keypad .keys-row .key:active {
+  background-color: #a5a5a590;
+}
+.keypad .keys-row :last-child {
+  background-color: #ffa45c;
+}
+.keypad .keys-row :last-child:active {
+  background-color: #ffa45ccc;
+}
+
+.keypad-new .key:active {
+  background-color: #ffa45ccc;
+}
+
+.keypad :last-child :first-child {
+  width: 50%;
+}
+.calculate {
+  width: 50% !important;
+}

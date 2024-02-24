@@ -42,14 +42,13 @@
           <input type="text" class="form-control" id="nama" placeholder="Kategori MTB" required name="nama" >
           <label for="nama" >Nama Kategori</label>
         </div>
-        <div class="form-floating mb-3">
-          <select class="form-select" id="event" name="event_id" aria-label="Pilih Event" required>
-            <option selected value="">Pilih Event</option>
+        <div class="form-control mb-3 py-3">
+        <label for="event" >Event</label>
+          <select class="form-select select2" style="width:100%" id="event" name="event_id" aria-label="Pilih Event" required>
             <?php foreach ($events as $event ) : ?>
               <option value="<?= $event['id']; ?>"><?= $event['nama']; ?></option>
             <?php endforeach; ?>
           </select>
-          <label for="event">Event</label>
         </div>
 
         <!-- <div class="mb-3 row align-items-center">
@@ -89,14 +88,13 @@
           <input type="text" class="form-control" id="editNama" placeholder="Kategori MTB" required name="nama" >
           <label for="nama" >Nama Kategori</label>
         </div>
-        <div class="form-floating mb-3">
-          <select class="form-select" id="editEvent" name="event_id" aria-label="Pilih Event" required>
-            <option selected value="">Pilih Event</option>
+        <div class="form-control mb-3 py-3">
+          <label for="event">Event</label>
+          <select class="form-select select2" style="width:100%"  id="editEvent" name="event_id" aria-label="Pilih Event" required>
             <?php foreach ($events as $event ) : ?>
               <option value="<?= $event['id']; ?>"><?= $event['nama']; ?></option>
             <?php endforeach; ?>
           </select>
-          <label for="event">Event</label>
         </div>
 
         <!-- <div class="mb-3 row align-items-center">
@@ -129,7 +127,13 @@
 <script src="<?= base_url('public'); ?>/select2/js/select2.min.js" ></script>
 <script>
     $(document).ready(function () {
+      $('#event').select2({
+        dropdownParent: $('#modal-tambahKategori')
+    });
 
+      $('#editEvent').select2({
+        dropdownParent: $('#modal-editKategori')
+      });
 
         $('#formModal-tambahKategori').submit(function (e) {
 

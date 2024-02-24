@@ -16,13 +16,14 @@
       <table id="table-rider" class="table text-center table-striped responsive nowrap">
         <thead >
           <tr>
-            <th style="width: 15%;">BIB</th>
+            <th style="width: 10%;">BIB</th>
             <th style="width: 15%;">Nama</th>
             <th style="width: 15%;">Tim</th>
             <th style="width: 10%;">JK</th>
             <th style="width: 15%;">Asal</th>
-            <th style="width: 15%;">Umur</th>
-            <th style="width: 15%;">Aksi </th>
+            <th style="width: 10%;">Umur</th>
+            <th style="width: 15%;">Kat / Event</th>
+            <th style="width: 10%;">Aksi </th>
           </tr>
         </thead>
         <tbody>
@@ -68,7 +69,17 @@
          <label for="provinsi_asal">Provinsi</label>
           <select class=" select2" style="width:100%;" id="provinsi_asal" name="provinsi_asal" aria-label="Pilih Provinsi" >
           </select>
+        </div>
+        <div class="form-control mb-3 py-2">
           
+        <label for="kategori">Partisipasi</label>
+          <select class="form-select select2" style="width:100%" id="kategori" name="kategori_id" aria-label="Pilih Kategori" required>
+            <!-- <option selected value="">Pilih Kategori</option> -->
+            <?php foreach ($categories as $kat ) : ?>
+              
+              <option value="<?= $kat['id']; ?>"><?= $kat['nama']; ?> / <?= $kat['event_nama']; ?></option>
+            <?php endforeach; ?>
+          </select>
         </div>
         
         <div class="form-floating">
@@ -128,6 +139,15 @@
           </select>
           
         </div>
+        <div class="form-floating mb-3 py-2">
+          <select class="form-select select2" style="width:100%" id="editKategori" name="kategori_id" aria-label="Pilih Kategori" required>
+            <option selected value="">Pilih Kategori</option>
+            <?php foreach ($categories as $kat ) : ?>
+              <option value="<?= $kat['id']; ?>"><?= $kat['nama']; ?> / <?= $kat['event_nama']; ?></option>
+            <?php endforeach; ?>
+          </select>
+          <label for="editKategori">Partisipasi</label>
+        </div>
         
         <div class="form-floating">
           <input type="date" name="tanggal_lahir" class="form-control" id="editTanggal_lahir" placeholder="Senin, 20 Januari 2024"  >
@@ -164,15 +184,23 @@
         dropdownParent: $('#modal-editRider')
       });
 
+      $('#kategori').select2({
+        dropdownParent: $('#modal-tambahRider')
+    });
+
+      $('#editKategori').select2({
+        dropdownParent: $('#modal-editRider')
+      });
+
         $('#formModal-tambahRider').submit(function (e) {
 
             e.preventDefault();
-            if ($('#nama').val() === '' || $('#event_id').val() === '' ) {
-                alert('Tolong isi nama atau pilih event');
+            if ($('#nama').val() === '' || $('#kategori_id').val() === '' ) {
+                alert('Tolong isi nama atau pilih partisipasi');
                 return;
             }
             const formData = new FormData(this);
-            
+          
             $.ajax({
                 url: '<?= base_url('rider') ?>',
                 method: 'POST',
@@ -207,7 +235,7 @@
             },
             columnDefs: [
                 // Center align the header content of column 1
-              { className: "dt-head-center", targets: [ 0, 1,2,3,4,5,6 ] }],
+              { className: "dt-head-center", targets: [ 0, 1,2,3,4,5,6,7 ] }],
             responsive: true,
            
             columns: [
@@ -242,6 +270,11 @@
                     return ageInYears;
                   }
                 },
+                { data: null,
+                  render: function(data, type, row) {
+                    // Customize the content of the merged column as needed
+                    return row.kategori_nama + ' / ' + row.event_nama;
+                } },
                 {
                   data: null,
                   render: function (data, type, row) {
@@ -251,7 +284,7 @@
                   orderable: false,
                 },
             ],
-            order: [[5, 'asc']]
+            order: [[0, 'asc']]
 
         });
         function refreshTable() {
